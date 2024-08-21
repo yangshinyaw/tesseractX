@@ -1,19 +1,18 @@
-document.getElementById('imageUploader').addEventListener('change', function(event) {
-    const imageFile = event.target.files[0];
-    if (!imageFile) return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR using Tesseract.js</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Upload an Image for OCR</h1>
+    <input type="file" id="imageUploader" accept="image/*">
+    <div id="output"></div>
 
-    const outputElement = document.getElementById('output');
-    outputElement.innerHTML = 'Processing...';
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
 
-    Tesseract.recognize(
-        imageFile,
-        'eng',
-        {
-            logger: (m) => console.log(m), // Optional logger
-        }
-    ).then(({ data: { text } }) => {
-        outputElement.innerHTML = `<h3>Extracted Text:</h3><p>${text}</p>`;
-    }).catch((error) => {
-        outputElement.innerHTML = `<p>Error: ${error.message}</p>`;
-    });
-});
